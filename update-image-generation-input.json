@@ -1,0 +1,18 @@
+{
+   "StreamName": "demo-stream",
+   "ImageGenerationConfiguration": {
+      "Status": "ENABLED",
+      "DestinationConfig": {
+         "DestinationRegion": "us-east-1",
+         "Uri": "s3://driver-monitor-frames-sennick-sakman/camera-01/"
+      },
+      "SamplingInterval": 3000,
+      "ImageSelectorType": "PRODUCER_TIMESTAMP",
+      "Format": "JPEG",
+      "FormatConfig": {
+         "JPEGQuality": "80"
+      },
+      "WidthPixels": 320,
+      "HeightPixels": 240
+   }
+}

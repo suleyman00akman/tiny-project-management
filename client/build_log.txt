@@ -1,0 +1,31 @@
+
+> client@0.0.0 build
+> vite build
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 21 modules transformed.
+✗ Build failed in 1.64s
+error during build:
+[vite:esbuild] Transform failed with 1 error:
+/app/src/pages/Login.jsx:119:6: ERROR: Expected ";" but found ":"
+file: /app/src/pages/Login.jsx:119:6
+
+Expected ";" but found ":"
+117 |              </div>
+118 |          </div>
+119 |      ) : (
+    |        ^
+120 |          <div className="glass-card" style={{
+121 |              padding: '3rem',
+
+    at failureErrorWithLog (/app/node_modules/esbuild/lib/main.js:1467:15)
+    at /app/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/app/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/app/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/app/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)

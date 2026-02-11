@@ -1,0 +1,122 @@
+{
+    "landing": {
+        "title": "TinyPM - Proje Yönetimi",
+        "subtitle": "Projelerinizi verimli bir şekilde yönetin",
+        "getStarted": "Başlayın",
+        "login": "Giriş Yap",
+        "register": "Kayıt Ol"
+    },
+    "register": {
+        "title": "Hesap Oluştur",
+        "username": "Kullanıcı Adı",
+        "password": "Şifre",
+        "confirmPassword": "Şifreyi Onayla",
+        "register": "Kayıt Ol",
+        "alreadyHaveAccount": "Zaten hesabınız var mı?",
+        "loginHere": "Buradan giriş yapın"
+    },
+    "login": {
+        "title": "Giriş Yap",
+        "username": "Kullanıcı Adı",
+        "password": "Şifre",
+        "departmentName": "Departman Adı (opsiyonel)",
+        "login": "Giriş Yap",
+        "noAccount": "Hesabınız yok mu?",
+        "registerHere": "Buradan kayıt olun"
+    },
+    "department": {
+        "create": "Departman Oluştur",
+        "name": "Departman Adı",
+        "selectDepartment": "Departman Seç",
+        "switchDepartment": "Departman Değiştir",
+        "myDepartments": "Departmanlarım",
+        "noDepartments": "Henüz departmanınız yok. İlkini oluşturun!",
+        "createFirst": "İlk Departmanınızı Oluşturun",
+        "management": "Departman Yönetimi",
+        "settings": "Departman Ayarları",
+        "accessDenied": "Erişim reddedildi. Sadece departman yöneticileri bu sayfaya erişebilir.",
+        "createNew": "Yeni Departman Oluştur"
+    },
+    "dashboard": {
+        "title": "Kontrol Paneli",
+        "welcome": "Hoş Geldiniz",
+        "projects": "Projeler",
+        "tasks": "Görevler",
+        "team": "Ekip",
+        "calendar": "Takvim",
+        "activity": "Aktivite",
+        "newProject": "Yeni Proje",
+        "newTask": "Yeni Görev"
+    },
+    "project": {
+        "name": "Proje Adı",
+        "startDate": "Başlangıç Tarihi",
+        "endDate": "Bitiş Tarihi",
+        "manager": "Yönetici",
+        "members": "Üyeler",
+        "addMember": "Üye Ekle",
+        "create": "Proje Oluştur",
+        "edit": "Projeyi Düzenle",
+        "delete": "Projeyi Sil",
+        "archive": "Projeyi Arşivle"
+    },
+    "task": {
+        "title": "Görev Başlığı",
+        "description": "Açıklama",
+        "status": "Durum",
+        "priority": "Öncelik",
+        "assignee": "Atanan",
+        "startDate": "Başlangıç Tarihi",
+        "dueDate": "Bitiş Tarihi",
+        "create": "Görev Oluştur",
+        "edit": "Görevi Düzenle",
+        "delete": "Görevi Sil",
+        "complete": "Görevi Tamamla"
+    },
+    "common": {
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "close": "Kapat",
+        "confirm": "Onayla",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "add": "Ekle",
+        "remove": "Kaldır",
+        "search": "Ara",
+        "filter": "Filtrele",
+        "loading": "Yükleniyor...",
+        "error": "Hata",
+        "success": "Başarılı",
+        "logout": "Çıkış Yap",
+        "settings": "Ayarlar",
+        "language": "Dil",
+        "userSettings": "Kullanıcı Ayarları"
+    },
+    "tour": {
+        "welcome": "Hoş Geldiniz! 👋",
+        "welcomeMessage": "TinyPM'e hoş geldiniz, {{username}}! Bu kısa tur ile sistemi nasıl kullanacağınızı göstereceğiz.",
+        "department": "Departmanınız",
+        "departmentMessage": "Burası departmanınızın adıdır. Tüm projeleriniz bu departman altında toplanır.",
+        "projects": "Proje Yönetimi",
+        "projectsMessage": "Projelerinizi buradan yönetin. Yanındaki '+' butonu ile anında yeni projeler başlatabilirsiniz.",
+        "tasks": "Görev Kontrolü",
+        "tasksMessage": "Tüm görevlerinize buradan erişin. '+' butonu ile her yerden yeni görev ekleyebilirsiniz.",
+        "team": "Ekibiniz",
+        "teamMessage": "Ekip arkadaşlarınızı yönetmek ve yeni üyeler davet etmek için 'Ekip' sekmesini kullanın.",
+        "ready": "Hazırsınız! 🚀",
+        "readyMessage": "Tur tamamlandı. Artık sistemin keyfini çıkarabilirsiniz!",
+        "next": "Sonraki",
+        "start": "Başla",
+        "close": "Kapat"
+    },
+    "auth": {
+        "fullName": "Tam Ad",
+        "loginEmail": "Giriş E-postası",
+        "loginDescription": "Kullanıcı bu e-postayı giriş yapmak için kullanacak",
+        "loginPreview": "Kullanıcı şu e-posta ile giriş yapacak",
+        "createSuccess": "Kullanıcı başarıyla oluşturuldu!",
+        "loginInstructions": "Kullanıcı sisteme aşağıdaki bilgilerle giriş yapabilir:",
+        "loginId": "Giriş E-postası",
+        "done": "Tamam"
+    }
+}

@@ -1,0 +1,122 @@
+{
+    "landing": {
+        "title": "TinyPM - Project Management",
+        "subtitle": "Manage your projects efficiently",
+        "getStarted": "Get Started",
+        "login": "Login",
+        "register": "Register"
+    },
+    "register": {
+        "title": "Create Account",
+        "username": "Username",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "register": "Register",
+        "alreadyHaveAccount": "Already have an account?",
+        "loginHere": "Login here"
+    },
+    "login": {
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "departmentName": "Department Name (optional)",
+        "login": "Login",
+        "noAccount": "Don't have an account?",
+        "registerHere": "Register here"
+    },
+    "department": {
+        "create": "Create Department",
+        "name": "Department Name",
+        "selectDepartment": "Select Department",
+        "switchDepartment": "Switch Department",
+        "myDepartments": "My Departments",
+        "noDepartments": "You don't have any departments yet. Create your first one!",
+        "createFirst": "Create Your First Department",
+        "management": "Department Management",
+        "settings": "Department Settings",
+        "accessDenied": "Access denied. Only department managers can access this page.",
+        "createNew": "Create New Department"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "welcome": "Welcome",
+        "projects": "Projects",
+        "tasks": "Tasks",
+        "team": "Team",
+        "calendar": "Calendar",
+        "activity": "Activity",
+        "newProject": "New Project",
+        "newTask": "New Task"
+    },
+    "project": {
+        "name": "Project Name",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "manager": "Manager",
+        "members": "Members",
+        "addMember": "Add Member",
+        "create": "Create Project",
+        "edit": "Edit Project",
+        "delete": "Delete Project",
+        "archive": "Archive Project"
+    },
+    "task": {
+        "title": "Task Title",
+        "description": "Description",
+        "status": "Status",
+        "priority": "Priority",
+        "assignee": "Assignee",
+        "startDate": "Start Date",
+        "dueDate": "Due Date",
+        "create": "Create Task",
+        "edit": "Edit Task",
+        "delete": "Delete Task",
+        "complete": "Complete Task"
+    },
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "close": "Close",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "remove": "Remove",
+        "search": "Search",
+        "filter": "Filter",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "logout": "Logout",
+        "settings": "Settings",
+        "language": "Language",
+        "userSettings": "User Settings"
+    },
+    "tour": {
+        "welcome": "Welcome! 👋",
+        "welcomeMessage": "Welcome to TinyPM, {{username}}! This quick tour will show you how to use the system.",
+        "department": "Your Department",
+        "departmentMessage": "This is your department name. All your projects are organized under this department.",
+        "projects": "Project Management",
+        "projectsMessage": "Manage your projects here. Use the '+' button to instantly create new projects.",
+        "tasks": "Task Control",
+        "tasksMessage": "Access all your tasks here. Use the '+' button to add new tasks from anywhere.",
+        "team": "Your Team",
+        "teamMessage": "Use the 'Team' tab to manage team members and invite new users.",
+        "ready": "You're Ready! 🚀",
+        "readyMessage": "Tour complete. Now you can start enjoying the system!",
+        "next": "Next",
+        "start": "Start",
+        "close": "Close"
+    },
+    "auth": {
+        "fullName": "Full Name",
+        "loginEmail": "Login Email",
+        "loginDescription": "User will use this email to login",
+        "loginPreview": "User will login with",
+        "createSuccess": "User created successfully!",
+        "loginInstructions": "The user can login with the following credentials:",
+        "loginId": "Login Email",
+        "done": "Done"
+    }
+}

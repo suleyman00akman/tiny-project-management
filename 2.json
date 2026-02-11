@@ -1,0 +1,18 @@
+{
+   "StreamName": "DriverMonitorStream",
+   "ImageGenerationConfiguration": {
+      "Status": "ENABLED",
+      "DestinationConfig": {
+         "DestinationRegion": "us-east-1",
+         "Uri": "arn:aws:s3:::driver-monitor-frames-sennick-sakman"
+      },
+      "SamplingInterval": 200,
+      "ImageSelectorType": "PRODUCER_TIMESTAMP",
+      "Format": "JPEG",
+      "FormatConfig": {
+         "JPEGQuality": "80"
+      },
+      "WidthPixels": 320,
+      "HeightPixels": 240
+   }
+}
