@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-function TaskListTable({ tasks, projects, onTaskClick, onStatusChange, onDelete }) {
+function TaskListTable({ tasks, projects, onTaskClick, onStatusChange, onDelete, readOnly = false }) {
     const { user } = useAuth(); // Keeping for potential future use or consistency
 
     // --- State for Sorting & Filtering ---
@@ -206,7 +206,7 @@ function TaskListTable({ tasks, projects, onTaskClick, onStatusChange, onDelete 
                                 {uniqueUsers.map(u => <option key={u} value={u} style={{ background: '#222' }}>{u}</option>)}
                             </select>
                         </th>
-                        <th style={{ padding: '1rem', verticalAlign: 'top', minWidth: '100px' }}>Actions</th>
+                        {!readOnly && <th style={{ padding: '1rem', verticalAlign: 'top', minWidth: '100px' }}>Actions</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -233,8 +233,9 @@ function TaskListTable({ tasks, projects, onTaskClick, onStatusChange, onDelete 
                             <td style={{ padding: '1rem' }}>
                                 <select
                                     value={task.status || 'To Do'}
-                                    onChange={(e) => handleStatusChange(task, e.target.value)}
+                                    onChange={(e) => !readOnly && handleStatusChange(task, e.target.value)}
                                     onClick={(e) => e.stopPropagation()}
+                                    disabled={readOnly}
                                     style={{
                                         background: 'transparent',
                                         border: `1px solid ${getStatusColor(task.status)}`,
@@ -242,7 +243,8 @@ function TaskListTable({ tasks, projects, onTaskClick, onStatusChange, onDelete 
                                         padding: '0.2rem 0.5rem',
                                         borderRadius: '12px',
                                         fontSize: '0.8rem',
-                                        cursor: 'pointer'
+                                        cursor: readOnly ? 'default' : 'pointer',
+                                        opacity: readOnly ? 0.8 : 1
                                     }}
                                 >
                                     {statusOptions.map(option => (
@@ -255,30 +257,32 @@ function TaskListTable({ tasks, projects, onTaskClick, onStatusChange, onDelete 
                             <td style={{ padding: '1rem', fontSize: '0.9rem' }}>
                                 {task.assignedTo || '-'}
                             </td>
-                            <td style={{ padding: '1rem' }}>
-                                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                    <button
-                                        className="small"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            onTaskClick && onTaskClick(task);
-                                        }}
-                                        style={{ fontSize: '0.8rem' }}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="danger small"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleDelete(task);
-                                        }}
-                                        style={{ fontSize: '0.8rem', padding: '0.3rem 0.6rem' }}
-                                    >
-                                        🗑
-                                    </button>
-                                </div>
-                            </td>
+                            {!readOnly && (
+                                <td style={{ padding: '1rem' }}>
+                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                        <button
+                                            className="small"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                onTaskClick && onTaskClick(task);
+                                            }}
+                                            style={{ fontSize: '0.8rem' }}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="danger small"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDelete(task);
+                                            }}
+                                            style={{ fontSize: '0.8rem', padding: '0.3rem 0.6rem' }}
+                                        >
+                                            🗑
+                                        </button>
+                                    </div>
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>

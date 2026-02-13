@@ -879,6 +879,13 @@ app.put('/api/todos/:id', requireAuth, async (req, res) => {
         if (updates.startDate === "") updates.startDate = null;
         if (updates.dueDate === "") updates.dueDate = null;
 
+        // Auto-update progress based on status
+        if (updates.status === 'Done') {
+            updates.progress = 100;
+        } else if (updates.status === 'To Do') {
+            updates.progress = 0;
+        }
+
         // If assigning to a new person by ID, update the name too
         if (updates.assignedToId) {
             const assignee = await User.findByPk(updates.assignedToId);

@@ -48,7 +48,9 @@ function ProjectView() {
 
     const calculateProgress = () => {
         if (!todos.length) return 0;
-        const total = todos.reduce((acc, t) => acc + (t.progress || 0), 0);
+        const total = todos.reduce((acc, t) => {
+            return acc + (t.progress || 0);
+        }, 0);
         return Math.round(total / todos.length);
     };
 
@@ -131,11 +133,11 @@ function ProjectView() {
                         <div style={{
                             width: `${projectProgress}%`,
                             height: '100%',
-                            background: 'var(--primary-gradient)',
+                            background: 'var(--gradient-primary)',
                             transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                         }} />
                     </div>
-                    <span style={{ fontSize: '0.9em', fontWeight: '600', color: 'var(--accent-primary)' }}>{projectProgress}% Complete</span>
+                    <span style={{ fontSize: '0.9em', fontWeight: '600', color: 'var(--accent-primary)' }}>{projectProgress}% Overall Progress</span>
                 </div>
             </div>
 

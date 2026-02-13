@@ -22,21 +22,12 @@ function Dashboard() {
     const [showArchived, setShowArchived] = useState(false);
     const [activityLog, setActivityLog] = useState([]);
     const [users, setUsers] = useState([]);
-    const [editingUser, setEditingUser] = useState(null);
-    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+    // Removed editing states for Read-Only Dashboard
     const [selectedTask, setSelectedTask] = useState(null);
     const [projectsWithTasks, setProjectsWithTasks] = useState([]);
 
     // Generic Modal State for alerts/infos
     const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', message: '', type: 'info' });
-
-    // Confirmation Modal State
-    const [confirmModal, setConfirmModal] = useState({
-        isOpen: false,
-        type: null, // 'ARCHIVE' or 'DELETE'
-        projectId: null,
-        projectName: ''
-    });
 
     useEffect(() => {
         fetchProjects();
@@ -134,37 +125,6 @@ function Dashboard() {
         }
     };
 
-    const handleActionClick = (e, type, project) => {
-        e.preventDefault();
-        setConfirmModal({
-            isOpen: true,
-            type,
-            projectId: project.id,
-            projectName: project.name
-        });
-    };
-
-    const confirmAction = async () => {
-        const { type, projectId } = confirmModal;
-        try {
-            if (type === 'ARCHIVE') {
-                await fetch(`/api/projects/${projectId}/archive`, {
-                    method: 'PUT',
-                    headers: { 'x-user-id': user.id }
-                });
-            } else if (type === 'DELETE') {
-                await fetch(`/api/projects/${projectId}`, {
-                    method: 'DELETE',
-                    headers: { 'x-user-id': user.id }
-                });
-            }
-            fetchProjects();
-        } catch (err) {
-            console.error(`Failed to ${type} project:`, err);
-        }
-        setConfirmModal({ isOpen: false, type: null, projectId: null, projectName: '' });
-    };
-
     return (
         <div>
             {/* Context Bar (Organization Header) */}
@@ -216,9 +176,10 @@ function Dashboard() {
                         <TaskListTable
                             tasks={projectsWithTasks.flatMap(p => p.todos || [])}
                             projects={projectsWithTasks}
-                            onTaskClick={(task) => setSelectedTask(task)}
+                            onTaskClick={(task) => setSelectedTask(task)} // Optionally, we can disable click too if needed, but readOnly prop handles inner logic
                             onStatusChange={updateTodo}
                             onDelete={deleteTodo}
+                            readOnly={true}
                         />
                     </div>
                 </div>
@@ -229,46 +190,59 @@ function Dashboard() {
                 <>
                     <h2 className="mb-3">Projects</h2>
                     <div className="grid-responsive" style={{ marginBottom: '2rem' }}>
-                        {projects.map(project => (
-                            <Link
-                                key={project.id}
-                                to={`/project/${project.id}`}
-                                className="card"
-                                style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', height: 'auto', minHeight: '220px', position: 'relative', opacity: project.isArchived ? 0.6 : 1 }}
-                            >
-                                <div>
-                                    <div className="flex-between">
-                                        <h2 style={{ fontSize: '1.4rem' }}>{project.name}</h2>
-                                        {project.isArchived && <span className="badge badge-gray">ARCHIVED</span>}
-                                    </div>
-                                    <p className="text-sm">Manager: {project.manager?.username || 'Unassigned'}</p>
+                        {projects.map(project => {
+                            // Calculate progress from projectsWithTasks to ensure sync
+                            const pWithTasks = projectsWithTasks.find(pt => pt.id === project.id);
+                            let completed = 0;
+                            let total = 0;
 
-                                    <div style={{ marginTop: '1rem' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.4rem' }}>
-                                            <span style={{ opacity: 0.7 }}>Progress</span>
-                                            <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>
-                                                {project.totalTasks > 0 ? Math.round((project.completedTasks / project.totalTasks) * 100) : 0}%
-                                            </span>
+                            if (pWithTasks && pWithTasks.todos) {
+                                total = pWithTasks.todos.length;
+                                completed = pWithTasks.todos.filter(t => t.status === 'Done').length;
+                            } else {
+                                // Fallback if tasks aren't loaded yet
+                                total = project.totalTasks || 0;
+                                completed = project.completedTasks || 0;
+                            }
+
+                            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                            return (
+                                <Link
+                                    key={project.id}
+                                    to={`/project/${project.id}`}
+                                    className="card"
+                                    style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', height: 'auto', minHeight: '220px', position: 'relative', opacity: project.isArchived ? 0.6 : 1 }}
+                                >
+                                    <div>
+                                        <div className="flex-between">
+                                            <h2 style={{ fontSize: '1.4rem' }}>{project.name}</h2>
+                                            {project.isArchived && <span className="badge badge-gray">ARCHIVED</span>}
                                         </div>
-                                        <div style={{ width: '100%', height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
-                                            <div style={{
-                                                width: `${project.totalTasks > 0 ? (project.completedTasks / project.totalTasks) * 100 : 0}%`,
-                                                height: '100%',
-                                                background: 'var(--accent-primary)',
-                                                boxShadow: '0 0 10px var(--accent-primary)',
-                                                transition: 'width 0.5s ease-out'
-                                            }} />
+                                        <p className="text-sm">Manager: {project.manager?.username || 'Unassigned'}</p>
+
+                                        <div style={{ marginTop: '1rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.4rem' }}>
+                                                <span style={{ opacity: 0.7 }}>Progress</span>
+                                                <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+                                                    {percentage}%
+                                                </span>
+                                            </div>
+                                            <div style={{ width: '100%', height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
+                                                <div style={{
+                                                    width: `${percentage}%`,
+                                                    height: '100%',
+                                                    background: 'var(--accent-primary)',
+                                                    boxShadow: '0 0 10px var(--accent-primary)',
+                                                    transition: 'width 0.5s ease-out'
+                                                }} />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {(user.role === 'Super Admin' || user.role === 'Department Manager') && (
-                                    <div className="flex-between" style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '1rem', marginTop: 'auto' }}>
-                                        <button className="small" style={{ fontSize: '0.8rem', opacity: 0.7 }} onClick={(e) => handleActionClick(e, 'ARCHIVE', project)}>Archive</button>
-                                        <button className="danger small" style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }} onClick={(e) => handleActionClick(e, 'DELETE', project)}>Delete</button>
-                                    </div>
-                                )}
-                            </Link>
-                        ))}
+                                    {/* Actions removed for Read-Only Dashboard */}
+                                </Link>
+                            );
+                        })}
                     </div>
                 </>
             )}
@@ -288,7 +262,7 @@ function Dashboard() {
                                                     <span style={{ fontWeight: '600' }}>{u.username}</span>
                                                     <span className="text-xs text-secondary ml-2">({u.role})</span>
                                                 </div>
-                                                <button className="small" style={{ fontSize: '0.7rem', padding: '2px 8px' }} onClick={() => { setEditingUser(u); setIsUserModalOpen(true); }}>Edit</button>
+                                                {/* Edit action removed for Read-Only Dashboard */}
                                             </li>
                                         ))}
                                     </ul>
@@ -327,33 +301,11 @@ function Dashboard() {
                 type={modalConfig.type}
             />
 
-            <Modal
-                isOpen={confirmModal.isOpen}
-                onClose={() => setConfirmModal({ ...confirmModal, isOpen: false })}
-                onConfirm={confirmAction}
-                title={confirmModal.type === 'ARCHIVE' ? 'Archive Project?' : 'Delete Project?'}
-                message={confirmModal.type === 'ARCHIVE'
-                    ? 'Are you sure you want to archive this project?'
-                    : 'Are you sure you want to permanently delete this project?'
-                }
-                confirmText={confirmModal.type === 'ARCHIVE' ? 'Archive' : 'Permanently Delete'}
-                type={confirmModal.type === 'ARCHIVE' ? 'warning' : 'danger'}
-            />
+            {/* Confirm Modal removed as actions are removed */}
 
-            <CreateUserModal
-                isOpen={isUserModalOpen}
-                onClose={() => { setIsUserModalOpen(false); setEditingUser(null); }}
-                editingUser={editingUser}
-                onUserCreated={() => { fetchUsers(); fetchActivity(); }}
-            />
+            {/* CreateUserModal removed as actions are removed */}
 
-            {selectedTask && (
-                <TaskEditModal
-                    todo={selectedTask}
-                    onClose={() => setSelectedTask(null)}
-                    onUpdate={handleTaskUpdate}
-                />
-            )}
+            {/* TaskEditModal removed/disabled for Read-Only */}
         </div>
     );
 }

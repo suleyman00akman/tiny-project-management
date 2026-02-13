@@ -50,7 +50,7 @@ function KanbanView({ todos, updateTodo, deleteTodo, onViewDetails }) {
     };
 
     return (
-        <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '1rem', minHeight: '600px' }}>
+        <div style={{ display: 'flex', gap: '1rem', height: '100%', minHeight: '400px', alignItems: 'stretch', overflowX: 'auto' }}>
             {Object.keys(columns).map(status => (
                 <div
                     key={status}
@@ -58,7 +58,8 @@ function KanbanView({ todos, updateTodo, deleteTodo, onViewDetails }) {
                     onDrop={(e) => handleDrop(e, status)}
                     className="kanban-column"
                     style={{
-                        flex: '0 0 350px',
+                        flex: 1,
+                        minWidth: '200px',
                         background: 'var(--glass-bg)',
                         border: '1px solid var(--glass-border)',
                         borderRadius: '12px',
